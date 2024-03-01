@@ -41,13 +41,13 @@ jobs:
     - name: Copy to Server
       run: |
         cd target
-        ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} '
-          cd ~
-          mkdir learn-github-action
-        '
-        scp ${{ steps.jar_info.outputs.jar_base_name }}.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}-${{ steps.jar_info.outputs.timestmap }}.jar
+        # ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} '
+        #   cd ~
+        #   mkdir learn-github-action
+        # '
+        scp ${{ steps.jar_info.outputs.jar_base_name }}.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}.jar
         ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} '
           screen -S learn-github-action -X quit
           screen -dmS learn-github-action
-          screen -S learn-github-action -X stuff "java -jar ~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}-${{ steps.jar_info.outputs.timestmap }}.jar$(printf \\r)"
+          screen -S learn-github-action -X stuff "java -jar ~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}.jar$(printf \\r)"
         '
