@@ -12,12 +12,12 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Test values
+      shell: bash
       env:
         TEST_KEY: ${{ secrets.TEST_KEY }}
         TEST_KEY2: ${{ vars.TEST_KEY2 }}
       run: |
-        echo $TEST_KEY2
-        ls
+        echo "$TEST_KEY2"
 
     # 如果通过SSH部署
     # - name: Setup SSH Keys
