@@ -19,13 +19,6 @@ jobs:
         java-version: 21
         distribution: 'temurin'
 
-    # 如果通过SSH部署
-    # - name: Setup SSH
-    #   uses: kielabokkie/ssh-key-and-known-hosts-action@v1.4.1
-    #   with:
-    #     ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-    #     ssh-host: ${{ secrets.SERVER_IP }}
-
     - name: Setup SSH Keys
       run: |
         mkdir -p ~/.ssh
@@ -48,4 +41,8 @@ jobs:
     - name: Copy to Server
       run: |
         cd target
+        ssh user@your-server-ip '
+          cd ~
+          mkdir learn-github-action
+        '
         scp ${{ steps.jar_info.outputs.jar_base_name }}.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}-${{ steps.jar_info.outputs.timestmap }}.jar
