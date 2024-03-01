@@ -14,9 +14,10 @@ jobs:
     - name: Test values
       env:
         TEST_KEY: ${{ secrets.TEST_KEY }}
+        TEST_KEY2: ${{ vars.TEST_KEY2 }}
       run: |
-        ls
         echo $TEST_KEY2
+        ls
 
     # 如果通过SSH部署
     # - name: Setup SSH Keys
