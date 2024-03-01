@@ -48,4 +48,4 @@ jobs:
     - name: Copy to Server
       run: |
         cd target
-        scp $JAR_FILE_WITH_SUFFIX ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/$JAR_BASE_NAME-$JAR_TIMESTAMP.jar
+        scp ${{ steps.jar_info.outputs.jar_base_name }}.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/${{ steps.jar_info.outputs.jar_base_name }}-${{ steps.jar_info.outputs.timestmap }}.jar
