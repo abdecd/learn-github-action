@@ -16,7 +16,7 @@ jobs:
         TEST_KEY: ${{ secrets.TEST_KEY }}
         TEST_KEY2: ${{ vars.TEST_KEY2 }}
       run: |
-        echo "${{ vars.TEST_KEY2 }}"
+        echo "${{ vars.TEST1 }}"
 
     # 如果通过SSH部署
     # - name: Setup SSH Keys
