@@ -1,0 +1,55 @@
+name: Deploy to Server
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Test values
+      env:
+        TEST_KEY: ${{ secrets.TEST_KEY }}
+      run: |
+        ls
+        echo $TEST_KEY
+
+    # 如果通过SSH部署
+    # - name: Setup SSH Keys
+    #   uses: webfactory/ssh-key-action@v0.5.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    # # 如果通过HTTPS和PAT部署
+    # - name: Setup SSH Keys (for HTTPS)
+    #   env:
+    #     TEST_KEY: ${{ secrets.TEST_KEY }}
+    #   run: |
+    #     mkdir -p ~/.ssh
+    #     echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+    #     chmod 600 ~/.ssh/id_rsa
+    #     ssh-keyscan your-server-ip >> ~/.ssh/known_hosts
+
+    # - name: Deploy to Server
+    #   run: |
+    #     # 这里根据你的部署脚本替换
+
+    #     # 或者如果你使用scp
+    #     scp -r . user@your-server-ip:/path/to/deployment/
+
+    #     # 或者如果你通过SSH登录并运行一些部署命令
+    #     ssh user@your-server-ip 'cd /path/to/project && git pull origin master && pm2 restart app'
+
+    #     # 如果使用SSH Key方式，不需要密码，否则你需要确保这里的操作支持输入PAT作为密码
+    #     # 或者预先配置无密码登录
+
+    # # 如果你的部署需要安装依赖或构建项目
+    # - name: Install Dependencies and Build
+    #   run: |
+    #     npm install
+    #     npm run build
+    #     # 或其他对应项目的构建命令
