@@ -41,7 +41,7 @@ jobs:
     - name: Copy to Server
       run: |
         cd target
-        ssh user@your-server-ip '
+        ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} '
           cd ~
           mkdir learn-github-action
         '
