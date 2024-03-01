@@ -36,7 +36,15 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests=true
 
+    - name: Get JAR file name and timestamp
+      id: jar_info
+      run: |
+        JAR_FILE=$(find target -type f -name "*.jar")
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        echo "::set-output name=jar_file::$JAR_FILE"
+        echo "::set-output name=timestmap::$TIMESTAMP"
+
     - name: Copy to Server
       run: |
         cd target
-        scp *.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action
+        scp ${{ steps.jar_info.outputs.jar_file }}.jar ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }}:~/learn-github-action/${{ steps.jar_info.outputs.jar_file }}-${{ steps.jar_info.outputs.timestamp }}.jar
