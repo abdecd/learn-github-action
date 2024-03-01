@@ -16,7 +16,7 @@ jobs:
         TEST_KEY: ${{ secrets.TEST_KEY }}
       run: |
         ls
-        echo $TEST_KEY
+        echo $TEST_KEY2
 
     # 如果通过SSH部署
     # - name: Setup SSH Keys
